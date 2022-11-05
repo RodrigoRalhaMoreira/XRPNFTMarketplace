@@ -47,7 +47,6 @@ async function connectWebsite() {
     await window.ethereum.request({ method: 'eth_requestAccounts' })
       .then(() => {
         updateButton();
-        console.log("here");
         getAddress();
         window.location.replace(location.pathname)
       });
@@ -57,7 +56,6 @@ async function connectWebsite() {
     let val = window.ethereum.isConnected();
     if(val)
     {
-      console.log("here");
       getAddress();
       toggleConnect(val);
       updateButton();
