@@ -36,6 +36,7 @@ async function getNFTData(tokenId) {
         name: meta.name,
         description: meta.description,
     }
+    console.log("item")
     console.log(item);
     updateData(item);
     updateDataFetched(true);
