@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import NFTTile from "./NFTTile";
 
-export default function Profile () {
+export default function Profile ({theme, toggleTheme}) {
     const [data, updateData] = useState([]);
     const [dataFetched, updateFetched] = useState(false);
     const [address, updateAddress] = useState("0x");
@@ -61,8 +61,8 @@ export default function Profile () {
         getNFTData(tokenId);
 
     return (
-        <div className="profileClass" style={{"min-height":"100vh"}}>
-            <Navbar></Navbar>
+        <div className="profileClass" style={{"minHeight":"100vh"}}>
+            <Navbar theme={theme} toggleTheme={toggleTheme}></Navbar>
             <div className="profileClass">
             <div className="flex text-center flex-col mt-11 md:text-2xl text-white">
                 <div className="mb-5">
