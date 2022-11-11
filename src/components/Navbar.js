@@ -14,58 +14,72 @@ import { useLocation } from 'react-router';
 function Navbar({theme, toggleTheme}) {
 
   const [connected, toggleConnect] = useState(false);
-  const location = useLocation();
-  const [currAddress, updateAddress] = useState('0x');
+    const location = useLocation();
+    const [currAddress, updateAddress] = useState("0x");
 
-  async function getAddress() {
-    const ethers = require("ethers");
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const addr = await signer.getAddress();
-    updateAddress(addr);
-  }
-
-  function updateButton() {
-    const ethereumButton = document.querySelector('.enableEthereumButton');
-    ethereumButton.textContent = "Connected";
-    ethereumButton.classList.remove("hover:bg-blue-70");
-    ethereumButton.classList.remove("bg-blue-500");
-    ethereumButton.classList.add("hover:bg-green-70");
-    ethereumButton.classList.add("bg-green-500");
-  }
-
-  async function connectWebsite() {
-
-      const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-      if(chainId !== '0x5')
-      {
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x5' }],
-      })
-      }  
-      await window.ethereum.request({ method: 'eth_requestAccounts' })
-        .then(() => {
-          updateButton();
-          getAddress();
-          window.location.replace(location.pathname)
-        });
-  }
-
-  useEffect(() => {
-    let val = window.ethereum.isConnected();
-    console.log(val);
-    if(val)
-    {
-      getAddress();
-      toggleConnect(val);
-      updateButton();
+    async function getAddress() {
+        const ethers = require("ethers");
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const addr = await signer.getAddress();
+        updateAddress(addr);
     }
 
-    window.ethereum.on('accountsChanged', function(accounts){
-      window.location.replace(location.pathname)
-    })
-  });
+    function updateButton() {
+        const ethereumButton = document.querySelector(".enableEthereumButton");
+        ethereumButton.textContent = "Connected";
+        ethereumButton.classList.remove("hover:bg-blue-70");
+        ethereumButton.classList.remove("bg-blue-500");
+        ethereumButton.classList.add("hover:bg-green-70");
+        ethereumButton.classList.add("bg-green-500");
+    }
+
+    async function connectWebsite() {
+        if (typeof window == "undefined" || typeof window.ethereum == "undefined") {
+            alert("Please install metamask: https://metamask.io/download/");
+        }
+        const chainId = await window.ethereum.request({ method: "eth_chainId" });
+        if (chainId !== "0x5") {
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: "0x5" }],
+            });
+        }
+        await window.ethereum.request({ method: "eth_requestAccounts" }).then(() => {
+            updateButton();
+            getAddress();
+            window.location.replace(location.pathname);
+        });
+    }
+
+    useEffect(() => {
+        getCurrentWalletConnected();
+    }, [currAddress]);
+
+    const getCurrentWalletConnected = async () => {
+        if (typeof window != "undefined" && typeof window.ethereum != "undefined") {
+            try {
+                const accounts = await window.ethereum.request({
+                    method: "eth_accounts",
+                });
+                if (accounts.length > 0) {
+                    getAddress();
+                    toggleConnect(true);
+                    updateButton();
+                } else {
+                    console.log("Connect to MetaMask using the Connect button");
+                }
+                window.ethereum.on("accountsChanged", function (accounts) {
+                    window.location.replace(location.pathname);
+                });
+            } catch (err) {
+                console.error(err.message);
+            }
+        } else {
+            /* MetaMask is not installed */
+            console.log("Please install MetaMask");
+        }
+    };
 
     return (
       <div className="">
