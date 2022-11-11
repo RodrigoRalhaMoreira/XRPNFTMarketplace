@@ -1,11 +1,19 @@
-import logo from "../logo_3.png";
-import fullLogo from "../full_logo.png";
-import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import logo from '../logo_3.png';
+import fullLogo from '../full_logo.png';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 
-function Navbar() {
-    const [connected, toggleConnect] = useState(false);
+function Navbar({theme, toggleTheme}) {
+
+  const [connected, toggleConnect] = useState(false);
     const location = useLocation();
     const [currAddress, updateAddress] = useState("0x");
 
@@ -74,61 +82,60 @@ function Navbar() {
     };
 
     return (
-        <div className="">
-            <nav className="w-screen">
-                <ul className="flex items-end justify-between py-3 bg-transparent text-white pr-5">
-                    <li className="flex items-end ml-5 pb-2">
-                        <Link to="/">
-                            <img src={fullLogo} alt="" width={120} height={120} className="inline-block -mt-2" />
-                            <div className="inline-block font-bold text-xl ml-2">NFT Marketplace</div>
-                        </Link>
-                    </li>
-                    <li className="w-2/6">
-                        <ul className="lg:flex justify-between font-bold mr-10 text-lg">
-                            {location.pathname === "/" ? (
-                                <li className="border-b-2 hover:pb-0 p-2">
-                                    <Link to="/">Marketplace</Link>
-                                </li>
-                            ) : (
-                                <li className="hover:border-b-2 hover:pb-0 p-2">
-                                    <Link to="/">Marketplace</Link>
-                                </li>
-                            )}
-                            {location.pathname === "/sellNFT" ? (
-                                <li className="border-b-2 hover:pb-0 p-2">
-                                    <Link to="/sellNFT">List My NFT</Link>
-                                </li>
-                            ) : (
-                                <li className="hover:border-b-2 hover:pb-0 p-2">
-                                    <Link to="/sellNFT">List My NFT</Link>
-                                </li>
-                            )}
-                            {location.pathname === "/profile" ? (
-                                <li className="border-b-2 hover:pb-0 p-2">
-                                    <Link to="/profile">Profile</Link>
-                                </li>
-                            ) : (
-                                <li className="hover:border-b-2 hover:pb-0 p-2">
-                                    <Link to="/profile">Profile</Link>
-                                </li>
-                            )}
-                            <li>
-                                <button
-                                    className="enableEthereumButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm"
-                                    onClick={connectWebsite}>
-                                    {connected ? "Connected" : "Connect Wallet"}
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-            <div className="text-white text-bold text-right mr-10 text-sm">
-                {currAddress !== "0x" ? "Connected to" : "Not Connected. Please login to view NFTs"}{" "}
-                {currAddress !== "0x" ? currAddress.substring(0, 15) + "..." : ""}
+      <div className="">
+        <nav className="w-screen">
+          <ul className='flex items-end justify-between py-3 bg-transparent text-white pr-5'>
+          <li className='flex items-end ml-5 pb-2'>
+            <Link to="/">
+            <div id={theme} className='inline-block font-bold text-xl ml-2'>
+              NFT Marketplace
             </div>
+            </Link>
+          </li>
+          <li className='w-2/6'>
+            <ul className='lg:flex justify-between font-bold mr-10 text-lg'>
+              {location.pathname === "/" ? 
+                <li id={theme} className=''>
+                  <Link to="/">Marketplace</Link>
+                </li>
+                :
+                <li id={theme} className=''>
+                  <Link to="/">Marketplace</Link>
+                </li>              
+              }
+              {location.pathname === "/sellNFT" ? 
+                <li id={theme} className='2'>
+                  <Link to="/sellNFT">List My NFT</Link>
+                </li>
+                :
+                <li id={theme} className=''>
+                  <Link to="/sellNFT">List My NFT</Link>
+                </li>              
+              }              
+              {location.pathname === "/profile" ? 
+                <li id={theme} className=''>
+                  <Link to="/profile">Profile</Link>
+                </li>
+                :
+                <li id={theme} className=''>
+                  <Link to="/profile">Profile</Link>
+                </li>              
+              } 
+              <li onClick={toggleTheme} className='pb-0 p-2'>
+                <img role="button" style={{"width":"25px"}} src={(theme === "light") ? require('../9023566_moon_fill_icon.png') : require('../9024829_sun_light_icon.png')}></img>
+              </li>
+              <li>
+                <button className="enableEthereumButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm" onClick={connectWebsite}>{connected? "Connected":"Connect Wallet"}</button>
+              </li>
+            </ul>
+          </li>
+          </ul>
+        </nav>
+        <div id={theme} className='text-white text-bold text-right mr-10 text-sm'>
+          {currAddress !== "0x" ? "Connected to":"Not Connected. Please login to view NFTs"} {currAddress !== "0x" ? (currAddress.substring(0,15)+'...'):""}
         </div>
+      </div>
     );
-}
+  }
 
-export default Navbar;
+  export default Navbar;

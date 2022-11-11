@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import NFTTile from "./NFTTile";
 
-export default function Profile () {
+export default function Profile ({theme, toggleTheme}) {
     const [data, updateData] = useState([]);
     const [dataFetched, updateFetched] = useState(false);
     const [address, updateAddress] = useState("0x");
@@ -61,16 +61,15 @@ export default function Profile () {
         getNFTData(tokenId);
 
     return (
-        <div className="profileClass" style={{"min-height":"100vh"}}>
-            <Navbar></Navbar>
+        <div className="profileClass" style={{"minHeight":"100vh"}}>
             <div className="profileClass">
-            <div className="flex text-center flex-col mt-11 md:text-2xl text-white">
+            <div id={theme} className="flex text-center flex-col mt-11 md:text-2xl text-white">
                 <div className="mb-5">
                     <h2 className="font-bold">Wallet Address</h2>  
                     {address}
                 </div>
             </div>
-            <div className="flex flex-row text-center justify-center mt-10 md:text-2xl text-white">
+            <div id={theme} className="flex flex-row text-center justify-center mt-10 md:text-2xl text-white">
                     <div>
                         <h2 className="font-bold">No. of NFTs</h2>
                         {data.length}
@@ -80,7 +79,7 @@ export default function Profile () {
                         {totalPrice} ETH
                     </div>
             </div>
-            <div className="flex flex-col text-center items-center mt-11 text-white">
+            <div id={theme} className="flex flex-col text-center items-center mt-11 text-white">
                 <h2 className="font-bold">Your NFTs</h2>
                 <div className="flex justify-center flex-wrap max-w-screen-xl">
                     {data.map((value, index) => {
