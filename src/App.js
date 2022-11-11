@@ -14,7 +14,7 @@ import Navbar from './components/Navbar';
 export const ThemeContext = createContext(null); 
 
 function App() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
 
   const toggleTheme = () => {
     setTheme( (curr) => (curr === "light" ? "dark" : "light") );
@@ -24,6 +24,7 @@ function App() {
     <ThemeContext.Provider value={ { theme, toggleTheme } }>
       <div className='App' id={theme} style={{"minHeight":"100vh"}}>
         <BrowserRouter>
+          <Navbar theme={theme} toggleTheme={toggleTheme}/>
           <Routes>
             <Route path="/" element={<Marketplace theme={theme} toggleTheme={toggleTheme}/>}/>
             <Route path="/nftPage/:tokenId" element={<NFTPage theme={theme} toggleTheme={toggleTheme}/>}/>        

@@ -4,7 +4,8 @@ html, body {
 
 #light {
   /* background-image: url('./bg.png'); */
-  background-color: rgb(240, 240, 240);
+  background-color: white;
+  color: black;
   margin: 0;
   /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -15,7 +16,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   background-size: cover;
-  animation-duration: 3s;
+  /* animation-duration: 3s;
   animation-timing-function: linear;
   animation-delay: 0s;
   animation-iteration-count: infinite;
@@ -23,12 +24,13 @@ html, body {
   animation-fill-mode: none;
   animation-play-state: running;
   animation-name: gradientTransform;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 }
 
 #dark {
   /* background-image: url('preview16.jpg'); */
   background-color: #353638;
+  color: white;
   margin: 0;
   /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -37,8 +39,8 @@ html, body {
   /*font-family: 'M PLUS 1p', sans-serif;*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-size: 100%;
-  animation-duration: 3s;
+  background-size: cover;
+  /* animation-duration: 3s;
   animation-timing-function: linear;
   animation-delay: 0s;
   animation-iteration-count: infinite;
@@ -46,7 +48,7 @@ html, body {
   animation-fill-mode: none;
   animation-play-state: running;
   animation-name: gradientTransform;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 }
 
 .App {
